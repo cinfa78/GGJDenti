@@ -89,7 +89,7 @@ public class ToothController : MonoBehaviour
 			MouthSide.Upper => yOffset * (flag ? -1 : 0),
 		};
 
-		return transform.localPosition = defaultPosition + transform.up * offset;
+		return transform.localPosition = defaultPosition + Vector3.up * offset;
 	}
 
 	public void SetTooth(bool isGum)

@@ -18,16 +18,11 @@ public class CameraController : MonoBehaviour
 	public void Shake()
 	{
 		var startingRotation = transform.localRotation;
-		
-		
-		
-		for (int i = 0; i < Random.Range(5, 10); i++)
-		{
-			var vector = new Vector3(Random.value, Random.value, Random.value);
 
-			transform.DOLocalRotate(vector, Random.Range(0f, 0.5f));
-		}
-
-		transform.localRotation = startingRotation;
+		DOTween.Shake(() => transform.localRotation.eulerAngles,
+					x => transform.localRotation = Quaternion.Euler(x),
+					0.69f,
+					new Vector3(Random.value, Random.value, Random.value))
+				.OnComplete(() => transform.DORotate(startingRotation.eulerAngles, 0.4f));
 	}
 }

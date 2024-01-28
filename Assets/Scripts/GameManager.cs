@@ -119,7 +119,7 @@ public class GameManager : MonoBehaviour
 		restartButton.SetActive(true);
 		TMP_Text text = restartButton.GetComponentInChildren<TMP_Text>();
 		text.alpha = 0;
-		text.DOFade(1, 1f);
+		text.DOFade(1, 3f);
 	}
 
 	[Button]

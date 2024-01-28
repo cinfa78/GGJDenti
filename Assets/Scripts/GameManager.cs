@@ -4,9 +4,12 @@ using System.Collections.Generic;
 using System.Linq;
 using DG.Tweening;
 using NaughtyAttributes;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
+using UnityEngine.SceneManagement;
+using UnityEngine.UIElements;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
@@ -44,6 +47,15 @@ public class GameManager : MonoBehaviour
 		ServiceLocator.sfxController.enabled = true;
 	}
 
+	private void Update()
+	{
+		if (Input.GetKeyDown(KeyCode.R))
+			Restart();
+
+		if (Input.GetKeyDown(KeyCode.W))
+			StartWinSequence();
+	}
+
 	private void OnEnable()
 	{
 		camera.StartingSequence();
@@ -65,6 +77,11 @@ public class GameManager : MonoBehaviour
 		CheckWin();
 	}
 
+	public void Restart()
+	{
+		SceneManager.LoadScene(0);
+	}
+
 	private void FX()
 	{
 		// ChromaticAberration
@@ -79,13 +96,30 @@ public class GameManager : MonoBehaviour
 	{
 		var hasWon = couples.All(x => (x.Item1.flag == x.Item2.flag));
 		if (hasWon)
-			StartCoroutine(WinSequence());
+			StartWinSequence();
 	}
+
+	private void StartWinSequence()
+	{
+		StartCoroutine(WinSequence());
+	}
+
+	[SerializeField] private Transform victoryUi;
+	[SerializeField] private GameObject restartButton;
 
 	private IEnumerator WinSequence()
 	{
+		victoryUi.gameObject.SetActive(true);
+
+		yield return new WaitForSeconds(1);
 		ServiceLocator.sfxController.PlayVictory();
-		yield return null;
+		yield return new WaitForSeconds(1);
+
+
+		restartButton.SetActive(true);
+		TMP_Text text = restartButton.GetComponentInChildren<TMP_Text>();
+		text.alpha = 0;
+		text.DOFade(1, 1f);
 	}
 
 	[Button]

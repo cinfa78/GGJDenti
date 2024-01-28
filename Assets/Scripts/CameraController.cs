@@ -5,15 +5,8 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
-	// Start is called before the first frame update
-	void Start()
-	{
-	}
-
-	// Update is called once per frame
-	void Update()
-	{
-	}
+	[SerializeField] private float focalLength;
+	[SerializeField] private float startingSequenceDuration;
 
 	public void Shake()
 	{
@@ -24,5 +17,12 @@ public class CameraController : MonoBehaviour
 					0.69f,
 					new Vector3(Random.value, Random.value, Random.value))
 				.OnComplete(() => transform.DORotate(startingRotation.eulerAngles, 0.4f));
+	}
+
+	public void StartingSequence()
+	{
+		var camera = this.GetComponent<Camera>();
+
+		DOTween.To(() => camera.focalLength, x => camera.focalLength = x, focalLength, startingSequenceDuration);
 	}
 }

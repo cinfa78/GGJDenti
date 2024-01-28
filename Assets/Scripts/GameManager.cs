@@ -42,6 +42,11 @@ public class GameManager : MonoBehaviour
 		ServiceLocator.sfxController.enabled = true;
 	}
 
+	private void OnEnable()
+	{
+		camera.StartingSequence();
+	}
+
 	private void OnToothMoved()
 	{
 		FX();

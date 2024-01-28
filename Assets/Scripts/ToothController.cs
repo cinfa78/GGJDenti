@@ -81,7 +81,7 @@ public class ToothController : MonoBehaviour
 		}
 	}
 
-	private Vector3 MoveTooth()
+	private void MoveTooth()
 	{
 		var offset = side switch
 		{
@@ -89,7 +89,7 @@ public class ToothController : MonoBehaviour
 			MouthSide.Upper => yOffset * (flag ? -1 : 0),
 		};
 
-		return transform.localPosition = defaultPosition + Vector3.up * offset;
+		transform.DOLocalMove(defaultPosition + Vector3.up * offset, 0.5f);
 	}
 
 	public void SetTooth(bool isGum)

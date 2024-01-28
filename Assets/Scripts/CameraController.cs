@@ -1,12 +1,22 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class CameraController : MonoBehaviour
 {
 	[SerializeField] private float focalLength;
+	[SerializeField] private float zommedFocalLength;
 	[SerializeField] private float startingSequenceDuration;
+
+	private Camera camera;
+
+	private void Awake()
+	{
+		camera = this.GetComponent<Camera>();
+	}
 
 	public void Shake()
 	{
@@ -19,10 +29,9 @@ public class CameraController : MonoBehaviour
 				.OnComplete(() => transform.DORotate(startingRotation.eulerAngles, 0.4f));
 	}
 
+
 	public void StartingSequence()
 	{
-		var camera = this.GetComponent<Camera>();
-
 		DOTween.To(() => camera.focalLength, x => camera.focalLength = x, focalLength, startingSequenceDuration);
 	}
 }

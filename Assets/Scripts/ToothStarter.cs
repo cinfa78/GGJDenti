@@ -73,7 +73,7 @@ public class ToothStarter : MonoBehaviour
 			if (tooth.flag)
 				continue;
 
-			tooth.StartShuffle();
+			tooth.StartShuffle(true);
 			Debug.Log(index);
 			moves++;
 		}

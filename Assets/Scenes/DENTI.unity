@@ -541,7 +541,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 1.02e-43, y: 0, z: 0, w: 5.6748516e+17}
+  m_BoundingSphereOverride: {x: 9.1837e-41, y: -9.05e-43, z: -1.595e-42, w: 1.7e-44}
   m_UseBoundingSphereOverride: 0
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
@@ -1184,6 +1184,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   focalLength: 90
+  zommedFocalLength: 110
   startingSequenceDuration: 2
 --- !u!1 &410087039
 GameObject:
@@ -2633,8 +2634,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 1.8969988e+28, y: 5.6719438e-11, z: 1.759054e+22,
-    w: 2.147168e+29}
+  m_BoundingSphereOverride: {x: 0, y: 2.4392e-41, z: 1.02e-43, w: 0}
   m_UseBoundingSphereOverride: 0
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 1

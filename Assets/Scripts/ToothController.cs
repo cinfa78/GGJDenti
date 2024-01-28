@@ -54,19 +54,19 @@ public class ToothController : MonoBehaviour
 		}
 	}
 
-	public void StartShuffle()
+	public void StartShuffle(bool isSilent = false)
 	{
-		FlipTooth();
+		FlipTooth(isSilent);
 		foreach (var tooth in connectedTooths)
 		{
-			tooth.FlipTooth();
+			tooth.FlipTooth(isSilent);
 		}
 	}
 
 	public void FlipTooth(bool isSilent = false)
 	{
 		flag = !flag;
-		MoveTooth();
+		MoveTooth(isSilent);
 
 		if (!isSilent)
 		{
@@ -75,7 +75,7 @@ public class ToothController : MonoBehaviour
 		}
 	}
 
-	private void MoveTooth()
+	private void MoveTooth(bool isSilent = false)
 	{
 		var offset = side switch
 		{
@@ -83,7 +83,11 @@ public class ToothController : MonoBehaviour
 			MouthSide.Upper => yOffset * (flag ? -1 : 0),
 		};
 
-		ServiceLocator.sfxController.OnToothMoved();
+		if (!isSilent)
+		{
+			ServiceLocator.sfxController.OnToothMoved();
+		}
+
 		SetRenderer();
 		transform.DOLocalMove(defaultPosition + Vector3.up * offset, 0.5f)
 				.OnComplete(SetRenderer);
@@ -105,6 +109,6 @@ public class ToothController : MonoBehaviour
 	{
 		this.flag = isGum;
 
-		MoveTooth();
+		MoveTooth(true);
 	}
 }

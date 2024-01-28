@@ -96,6 +96,8 @@ public class ToothController : MonoBehaviour
 			MouthSide.Lower => !flag,
 			MouthSide.Upper => flag,
 		};
+
+		clickable = renderer.enabled;
 	}
 
 

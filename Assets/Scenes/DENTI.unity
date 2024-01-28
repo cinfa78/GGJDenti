@@ -541,7 +541,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 9.1837e-41, y: -9.05e-43, z: -1.595e-42, w: 1.7e-44}
+  m_BoundingSphereOverride: {x: 4.5905e-41, y: 2.516332e+16, z: 4.5905e-41, w: 9.403955e-38}
   m_UseBoundingSphereOverride: 0
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
@@ -1183,7 +1183,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d514847a069650c4d990ea7cd8dca32a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  focalLength: 90
+  focalLength: 115
   zommedFocalLength: 110
   startingSequenceDuration: 2
 --- !u!1 &410087039
@@ -2634,7 +2634,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 0, y: 2.4392e-41, z: 1.02e-43, w: 0}
+  m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
   m_UseBoundingSphereOverride: 0
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 1

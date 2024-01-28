@@ -34,4 +34,10 @@ public class CameraController : MonoBehaviour
 	{
 		DOTween.To(() => camera.focalLength, x => camera.focalLength = x, focalLength, startingSequenceDuration);
 	}
+
+	public void PunchIn()
+	{
+		DOTween.To(() => camera.focalLength, x => camera.focalLength = x, camera.focalLength + 15, .2f)
+				.OnComplete(() => DOTween.To(() => camera.focalLength, x => camera.focalLength = x, camera.focalLength - 15, .2f));
+	}
 }

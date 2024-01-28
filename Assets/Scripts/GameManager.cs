@@ -21,6 +21,7 @@ public class GameManager : MonoBehaviour
 
 	[SerializeField] private CameraController camera;
 	private ChromaticAberration chromaticAberration;
+	private DepthOfField dof;
 
 	private void Awake()
 	{
@@ -35,6 +36,7 @@ public class GameManager : MonoBehaviour
 		ToothController.Moved += OnToothMoved;
 
 		chromaticAberration = volume.profile.components.OfType<ChromaticAberration>().First();
+		dof = volume.profile.components.OfType<DepthOfField>().First();
 	}
 
 	private void Start()
@@ -45,6 +47,15 @@ public class GameManager : MonoBehaviour
 	private void OnEnable()
 	{
 		camera.StartingSequence();
+		this.StartingSequence();
+	}
+
+	private void StartingSequence()
+	{
+		var sequence = DOTween.Sequence();
+		sequence.PrependInterval(1f);
+		sequence.Append(DOTween.To(() => dof.focalLength.value, x => dof.focalLength.value = x, 0, 2f));
+		sequence.Play();
 	}
 
 	private void OnToothMoved()
@@ -61,17 +72,19 @@ public class GameManager : MonoBehaviour
 				.OnComplete(() => DOTween.To(() => chromaticAberration.intensity.value, x => chromaticAberration.intensity.value = x, 0, 0.3f));
 
 		camera.Shake();
+		camera.PunchIn();
 	}
 
 	private void CheckWin()
 	{
-		var hasWon = couples.All(x => (x.Item1 == x.Item2));
+		var hasWon = couples.All(x => (x.Item1.flag == x.Item2.flag));
 		if (hasWon)
 			StartCoroutine(WinSequence());
 	}
 
 	private IEnumerator WinSequence()
 	{
+		ServiceLocator.sfxController.PlayVictory();
 		yield return null;
 	}
 

@@ -19,7 +19,7 @@ public class PainLaughSfxController : MonoBehaviour
 		ServiceLocator.sfxController = this;
 		this.enabled = false;
 	}
-	
+
 	private AudioSource GetAudioSource(AudioClip clip)
 	{
 		var source = this.AddComponent<AudioSource>();
@@ -72,8 +72,17 @@ public class PainLaughSfxController : MonoBehaviour
 
 	public void OnToothMoved()
 	{
+		StartCoroutine(ToothMovedCoroutine());
+	}
+
+	IEnumerator ToothMovedCoroutine()
+	{
 		PlayTooth();
-		PlayLaugh();
+		yield return new WaitForSeconds(0.15f);
+
 		PlayPain();
+		yield return new WaitForSeconds(0.75f);
+		
+		PlayLaugh();
 	}
 }

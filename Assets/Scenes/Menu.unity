@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028334, g: 0.2257134, b: 0.30692226, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -5559,7 +5559,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 0.4811321, g: 0.20198469, b: 0.20198469, a: 0.6509804}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -5753,7 +5753,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 0.4811321, g: 0.20198469, b: 0.20198469, a: 0.6509804}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -6107,7 +6107,7 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 1847511131}
         m_TargetAssemblyTypeName: PainLaughSfxController, Assembly-CSharp
-        m_MethodName: PlayLaugh
+        m_MethodName: PlayStartingLaugh
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -6322,6 +6322,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: MultiAudio
+      objectReference: {fileID: 0}
+    - target: {fileID: 757694178020443715, guid: 373847801324e5b419c99347156f68c0,
+        type: 3}
+      propertyPath: m_Volume
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 757694178020443716, guid: 373847801324e5b419c99347156f68c0,
         type: 3}

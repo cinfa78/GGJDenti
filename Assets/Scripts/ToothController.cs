@@ -1,8 +1,6 @@
 using System;
-using System.Collections;
 using DG.Tweening;
 using UnityEngine;
-using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
 [SelectionBase]
@@ -18,21 +16,19 @@ public class ToothController : MonoBehaviour
 	private Color startingColor;
 
 	public float yOffset = 0.25f;
-	public AudioClip flipClip;
-	private AudioSource audioSource;
 	private int currentPosition;
 	private Vector3 defaultPosition;
 	public ParticleSystem bloodVfx;
 	public bool clickable;
+	private MeshRenderer renderer;
 
 	private void Awake()
 	{
 		defaultPosition = transform.localPosition;
-		audioSource = gameObject.AddComponent<AudioSource>();
-		audioSource.playOnAwake = false;
-		audioSource.clip = flipClip;
 
-		startingColor = this.GetComponentInChildren<MeshRenderer>().material.color;
+
+		renderer = this.GetComponentInChildren<MeshRenderer>();
+		startingColor = renderer.material.color;
 	}
 
 	public void OnMouseEnter()
@@ -45,7 +41,7 @@ public class ToothController : MonoBehaviour
 		GetComponentInChildren<MeshRenderer>().material.DOColor(startingColor, 1);
 	}
 
-	public void OnMouseDown()
+	public void Activate()
 	{
 		if (!clickable)
 			return;
@@ -74,10 +70,8 @@ public class ToothController : MonoBehaviour
 
 		if (!isSilent)
 		{
-			audioSource.pitch = 1 + Random.Range(-0.5f, 0.5f);
-			audioSource.Play();
-			audioSource.DOPitch(1, 0.2f);
 			bloodVfx.Play();
+			Moved?.Invoke();
 		}
 	}
 
@@ -89,8 +83,21 @@ public class ToothController : MonoBehaviour
 			MouthSide.Upper => yOffset * (flag ? -1 : 0),
 		};
 
-		transform.DOLocalMove(defaultPosition + Vector3.up * offset, 0.5f);
+		ServiceLocator.sfxController.OnToothMoved();
+		SetRenderer();
+		transform.DOLocalMove(defaultPosition + Vector3.up * offset, 0.5f)
+				.OnComplete(SetRenderer);
 	}
+
+	private void SetRenderer()
+	{
+		renderer.enabled = side switch
+		{
+			MouthSide.Lower => !flag,
+			MouthSide.Upper => flag,
+		};
+	}
+
 
 	public void SetTooth(bool isGum)
 	{

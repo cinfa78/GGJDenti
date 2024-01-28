@@ -154,9 +154,8 @@ MonoBehaviour:
   - {fileID: 8300000, guid: abfdd2ff87233e34391b618f36fc6af8, type: 3}
   - {fileID: 8300000, guid: 92840c7da4622dc44802402730ecc7e7, type: 3}
   - {fileID: 8300000, guid: f86c81e5c6f56984997612ddfa1dccf8, type: 3}
-  painSource: {fileID: 757694178020443717}
-  laughSource: {fileID: 757694178020443715}
   victoryLaugh: {fileID: 8300000, guid: bf5270bec82af564981f3a2221729cf3, type: 3}
+  toothAudioClip: {fileID: 8300000, guid: 1c74b034e369ad348be5e6ce090d4333, type: 3}
 --- !u!82 &757694178020443715
 AudioSource:
   m_ObjectHideFlags: 0

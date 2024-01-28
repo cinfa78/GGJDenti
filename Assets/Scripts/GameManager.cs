@@ -2,8 +2,11 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using DG.Tweening;
 using NaughtyAttributes;
 using UnityEngine;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
@@ -14,6 +17,10 @@ public class GameManager : MonoBehaviour
 	public ToothStarter lowerTeeth;
 
 	private List<(ToothController, ToothController)> couples = new();
+	[SerializeField] private Volume volume;
+
+	[SerializeField] private CameraController camera;
+	private ChromaticAberration chromaticAberration;
 
 	private void Awake()
 	{
@@ -26,11 +33,29 @@ public class GameManager : MonoBehaviour
 		}
 
 		ToothController.Moved += OnToothMoved;
+
+		chromaticAberration = volume.profile.components.OfType<ChromaticAberration>().First();
+	}
+
+	private void Start()
+	{
+		ServiceLocator.sfxController.enabled = true;
 	}
 
 	private void OnToothMoved()
 	{
+		FX();
+
 		CheckWin();
+	}
+
+	private void FX()
+	{
+		// ChromaticAberration
+		DOTween.To(() => chromaticAberration.intensity.value, x => chromaticAberration.intensity.value = x, 1f, 0.3f)
+				.OnComplete(() => DOTween.To(() => chromaticAberration.intensity.value, x => chromaticAberration.intensity.value = x, 0, 0.3f));
+
+		camera.Shake();
 	}
 
 	private void CheckWin()

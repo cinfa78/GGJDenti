@@ -1,32 +1,79 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
+using Unity.VisualScripting;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
-public class PainLaughSfxController : MonoBehaviour {
+public class PainLaughSfxController : MonoBehaviour
+{
 	public AudioClip[] painClips;
 	public AudioClip[] laughClips;
-	public AudioSource painSource;
-	public AudioSource laughSource;
 	public AudioClip victoryLaugh;
+	public AudioClip toothAudioClip;
 
-	public void PlayLaugh() {
-		laughSource.Stop();
-		laughSource.clip = laughClips[Random.Range(0, laughClips.Length)];
-		laughSource.pitch = 1 + Random.Range(-0.2f, 0.2f);
-		laughSource.Play();
+	private void Awake()
+	{
+		DontDestroyOnLoad(this);
+		ServiceLocator.sfxController = this;
+		this.enabled = false;
+	}
+	
+	private AudioSource GetAudioSource(AudioClip clip)
+	{
+		var source = this.AddComponent<AudioSource>();
+		source.clip = clip;
+		Destroy(source, clip.length * 2.5f);
+		return source;
 	}
 
-	public void PlayPain() {
-		painSource.Stop();
-		painSource.clip = painClips[Random.Range(0, painClips.Length)];
-		painSource.pitch = 1 + Random.Range(-0.2f, 0.2f);
-		painSource.Play();
+	public void PlayLaugh()
+	{
+		var clip = laughClips[Random.Range(0, laughClips.Length)];
+		var source = GetAudioSource(clip);
+		source.pitch = 1 + Random.Range(-0.2f, 0.2f);
+		source.Play();
 	}
 
-	public void PlayVictory() {
-		laughSource.Stop();
-		laughSource.clip = victoryLaugh;
-		laughSource.pitch = 1;
-		laughSource.Play();
+	public void PlayStartingLaugh()
+	{
+		var clip = laughClips[Random.Range(0, laughClips.Length)];
+		var source = GetAudioSource(clip);
+		source.pitch = 0.6f;
+		source.volume = 2;
+		source.Play();
+	}
+
+	public void PlayPain()
+	{
+		var clip = painClips[Random.Range(0, painClips.Length)];
+		var source = GetAudioSource(clip);
+		source.pitch = 1 + Random.Range(-0.2f, 0.2f);
+		source.Play();
+	}
+
+	public void PlayVictory()
+	{
+		var source = GetAudioSource(victoryLaugh);
+		source.pitch = 1 + Random.Range(-0.2f, 0.2f);
+		source.Play();
+	}
+
+	public void PlayTooth()
+	{
+		var source = GetAudioSource(toothAudioClip);
+		source.pitch = 1 + Random.Range(-0.5f, 0.5f);
+		source.DOPitch(1, 0.2f);
+
+		source.Play();
+	}
+
+
+	public void OnToothMoved()
+	{
+		PlayTooth();
+		PlayLaugh();
+		PlayPain();
 	}
 }

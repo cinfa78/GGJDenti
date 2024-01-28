@@ -1,15 +1,11 @@
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class MouseRaycaster : MonoBehaviour
 {
-	private Camera camera;
+	[SerializeField] private Camera camera;
 	public Vector3 point;
-
-	// Start is called before the first frame update
-	void Start()
-	{
-		camera = this.GetComponent<Camera>();
-	}
+	
 
 	// Update is called once per frame
 	void Update()
@@ -20,7 +16,14 @@ public class MouseRaycaster : MonoBehaviour
 			return;
 
 		point = hit.point;
+
+		if (Input.GetMouseButtonDown(0))
+		{
+			if (hit.transform.TryGetComponent<ToothController>(out var tooth))
+				tooth.Activate();
+		}
 	}
+
 
 	private void OnDrawGizmos()
 	{

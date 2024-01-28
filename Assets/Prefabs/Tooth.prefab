@@ -134,9 +134,8 @@ MonoBehaviour:
   flag: 1
   connectedTooths: []
   side: 0
-  highlightColor: {r: 0.98379767, g: 1, b: 0, a: 0}
+  highlightColor: {r: 0, g: 0.16154432, b: 1, a: 0}
   yOffset: 0.75
-  flipClip: {fileID: 8300000, guid: 1c74b034e369ad348be5e6ce090d4333, type: 3}
   bloodVfx: {fileID: 8769922565806720437}
   clickable: 1
 --- !u!136 &5815448887370773189
